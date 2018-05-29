@@ -1,7 +1,7 @@
 //  Andrey Tulyakov
 //  2018
 
-const CURRENT_PATH = '/';
+const CURRENT_PATH = '';
 
 world = get_world();
 
