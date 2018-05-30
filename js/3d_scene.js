@@ -18,7 +18,8 @@ function init_3d_components() {
 
     // 3D Canvas part 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xBBBBFF);
+    scene.background = new THREE.Color(0x202050);
+    scene.fog = new THREE.Fog(0x202050, 50, 200);
 
     // Канвас
     canvas_container = document.getElementById("container3d");
@@ -31,7 +32,7 @@ function init_3d_components() {
 
     camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 10000);
     camera.position.y = 50;
-    camera.position.z = 80;
+    camera.position.z = 100;
 
 
     renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -44,13 +45,13 @@ function init_3d_components() {
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableKeys = false;
     controls.keys = {};
-    controls.target = new THREE.Vector3(0, 40, 0);
+    controls.target = new THREE.Vector3(0, 10, 0);
     controls.enableDamping = true;
     controls.enablePan = false;
     controls.dampingFactor = 0.2;
     controls.panningMode = THREE.HorizontalPanning;
-    controls.minDistance = 30;
-    controls.maxDistance = 100;
+    controls.minDistance = 50;
+    controls.maxDistance = 500;
     controls.maxPolarAngle = Math.PI / 1.7;
     controls.minPolarAngle = Math.PI / 8;
     controls.target_offset = 40;
@@ -61,24 +62,31 @@ function init_3d_components() {
     }
 
 
-    let light = new THREE.PointLight(0xFAFAFF, 1.0, 500);
+    let light = new THREE.PointLight(0x5050FF, 2.0, 1000);
     light.position.set(0, 100, 0);
     scene.add(light);
 
+    let light2 = new THREE.PointLight(0xFFFF55, 2.0, 50);
+    light2.position.set(0, 30, 30);
+    scene.add(light2);
 
-    let plane_geometry = new THREE.PlaneBufferGeometry(500, 500);
-    let plane_material = new THREE.MeshStandardMaterial({ color: 0x335533 });
-    let plane_mesh = new THREE.Mesh(plane_geometry, plane_material);
-    plane_mesh.position.y = -0.1;
-    plane_mesh.rotation.x = - Math.PI * 0.5;
-    plane_mesh.castShadow = true;
-    plane_mesh.receiveShadow = true;
-    scene.add(plane_mesh);
+    let light3 = new THREE.PointLight(0x33FF55, 2.0, 50);
+    light3.position.set(0, 30, 0);
+    scene.add(light3);
 
-    let grid = new THREE.GridHelper(250, 10, 0x88FF88, 0x00AA00);
-    grid.material.opacity = 0.25;
-    grid.material.transparent = true;
-    scene.add(grid);
+    // let plane_geometry = new THREE.PlaneBufferGeometry(500, 500);
+    // let plane_material = new THREE.MeshStandardMaterial({ color: 0x335533 });
+    // let plane_mesh = new THREE.Mesh(plane_geometry, plane_material);
+    // plane_mesh.position.y = -0.1;
+    // plane_mesh.rotation.x = - Math.PI * 0.5;
+    // plane_mesh.castShadow = true;
+    // plane_mesh.receiveShadow = true;
+    // scene.add(plane_mesh);
+
+    // let grid = new THREE.GridHelper(250, 10, 0x88FF88, 0x00AA00);
+    // grid.material.opacity = 0.25;
+    // grid.material.transparent = true;
+    // scene.add(grid);
 
     canvas_container.addEventListener('mousemove', onCanvasMouseMove, false);
     canvas_container.addEventListener('mousedown', onCanvasMouseDown, false);
