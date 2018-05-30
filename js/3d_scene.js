@@ -4,7 +4,7 @@ let main_model = null, empty_pusher_board_model = null, pusher_model = null;
 let object_confuguration = {}
 let mouse = new THREE.Vector2(), INTERSECTED;
 let fbx_loader = new THREE.FBXLoader();
-let clock = new THREE.Clock();
+var clock = new THREE.Clock();
 let mixers = [];
 let stats = null;
 
@@ -13,13 +13,14 @@ let e3d_dblClicked = null;
 
 let world = null;
 
+let water;
 
 function init_3d_components() {
 
     // 3D Canvas part 
     scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x202050);
-    scene.fog = new THREE.Fog(0x202050, 50, 200);
+    scene.background = new THREE.Color(0x10102A);
+    scene.fog = new THREE.Fog(0x10102A, 20, 200);
 
     // Канвас
     canvas_container = document.getElementById("container3d");
@@ -30,22 +31,25 @@ function init_3d_components() {
 
     raycaster = new THREE.Raycaster();
 
-    camera = new THREE.PerspectiveCamera(75, w / h, 0.1, 10000);
-    camera.position.y = 50;
-    camera.position.z = 100;
-
-
+    
     renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.transparency = THREE.OrderIndependentTransperancy;
     renderer.setSize(w, h);
     renderer.shadowMap.enabled = false;
     renderer.shadowMap.type = THREE.PCFShadowMap;
     canvas_container.appendChild(renderer.domElement);
 
+
+
+    camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
+    camera.position.y = 20;
+    camera.position.z = 130;
+
     // Контроллер камеры - орбитальный
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableKeys = false;
     controls.keys = {};
-    controls.target = new THREE.Vector3(0, 10, 0);
+    controls.target = new THREE.Vector3(0, 25, 0);
     controls.enableDamping = true;
     controls.enablePan = false;
     controls.dampingFactor = 0.2;
@@ -58,21 +62,43 @@ function init_3d_components() {
     controls.mouseButtons = {
         ORBIT: THREE.MOUSE.LEFT,
         ZOOM: THREE.MOUSE.MIDDLE,
-        //PAN: THREE.MOUSE.RIGHT
-    }
+        PAN: THREE.MOUSE.RIGHT
+    };
+
+
+
 
 
     let light = new THREE.PointLight(0x5050FF, 2.0, 1000);
     light.position.set(0, 100, 0);
     scene.add(light);
 
-    let light2 = new THREE.PointLight(0xFFFF55, 2.0, 50);
+    let light2 = new THREE.PointLight(0xFFFF55, 2.0, 100);
     light2.position.set(0, 30, 30);
     scene.add(light2);
 
     let light3 = new THREE.PointLight(0x33FF55, 2.0, 50);
     light3.position.set(0, 30, 0);
     scene.add(light3);
+
+    // var ambientLight = new THREE.AmbientLight( 0xcccccc, 0.4 );
+	// scene.add( ambientLight );
+
+    // water
+
+    var waterGeometry = new THREE.PlaneBufferGeometry( 1000, 1000 );
+    water = new THREE.Water( waterGeometry, {
+        color: 0xAAAAFF,
+        scale: 1.0,
+        flowDirection: new THREE.Vector2( 0.2, 0.2),
+        textureWidth: 1024,
+        textureHeight: 1024
+    } );
+
+    //water.scale.set(2, 2, 2);
+    water.position.y = 2.5;
+    water.rotation.x = Math.PI * - 0.5;
+    scene.add(water);
 
     // let plane_geometry = new THREE.PlaneBufferGeometry(500, 500);
     // let plane_material = new THREE.MeshStandardMaterial({ color: 0x335533 });
@@ -151,23 +177,25 @@ function onCanvasMouseDoubleClick(event) {
 function animate() {
     requestAnimationFrame(animate);
 
-    let delta = clock.getDelta();
+    // let delta = clock.getDelta();
 
-    if (mixers.length > 0) {
-        for (var i = 0; i < mixers.length; i++) {
-            mixers[i].update(delta);
-        }
-    }
+    // if (mixers.length > 0) {
+    //     for (var i = 0; i < mixers.length; i++) {
+    //         mixers[i].update(delta);
+    //     }
+    // }
 
     controls.update();
     render();
 }
 
 function render() {
-    camera.updateMatrixWorld();
+    //camera.updateMatrixWorld();
     raycaster.setFromCamera(mouse, camera);
 
+   
+
     stats.update();
-    renderer.clear();
+    //renderer.clear();
     renderer.render( scene, camera );
 }

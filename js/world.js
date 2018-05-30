@@ -10,16 +10,22 @@ function get_world() {
 
 
     world.init = function () {
-        //world.models.forest_scene.position.y = 20;
-        world.models.forest_scene.scale.set(0.2,0.2,0.2);
+        world.models.forest_scene.position.y = 15;
+        world.models.forest_scene.scale.set(0.2, 0.2, 0.2);
 
-        let materials = findAllMaterialsInObjectByName(world.models.forest_scene, '', []);
+        let materials = findAllMaterialsInObject(world.models.forest_scene, []);
+        //let materials = findAllMaterialsInObjectByName(world.models.forest_scene, 'Material__1', []);
+
         for (let i = 0; i < materials.length; i++) {
+            materials[i].alphaTest = 0.1;
             materials[i].transparent = true;
             materials[i].needsUpdate = true;
+            materials[i].depthTest = true;
+            materials[i].depthWrite = true;
+            materials[i].side = THREE.DoubleSide;
         }
 
-        console.log('world.models.forest_scene:', world.models.forest_scene);
+        
         scene.add(world.models.forest_scene);
     };
 
