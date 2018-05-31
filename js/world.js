@@ -17,7 +17,7 @@ function get_world() {
         //let materials = findAllMaterialsInObjectByName(world.models.forest_scene, 'Material__1', []);
 
         for (let i = 0; i < materials.length; i++) {
-            materials[i].alphaTest = 0.1;
+            materials[i].alphaTest = 0.50;
             materials[i].transparent = true;
             materials[i].needsUpdate = true;
             materials[i].depthTest = true;
