@@ -20,7 +20,7 @@ function init_3d_components() {
     // 3D Canvas part 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x202040);
-    scene.fog = new THREE.Fog(0x202040, 100, 500);
+    scene.fog = new THREE.Fog(0x202040, 100, 250);
 
     // Канвас
     canvas_container = document.getElementById("container3d");
@@ -33,31 +33,28 @@ function init_3d_components() {
 
     
     renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.transparency = THREE.OrderIndependentTransperancy;
     renderer.setSize(w, h);
-    renderer.shadowMap.enabled = false;
-    renderer.shadowMap.type = THREE.PCFShadowMap;
     canvas_container.appendChild(renderer.domElement);
 
 
     camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
 
-    camera.position.x = 100;
-    camera.position.y = 24;
-    camera.position.z = 110;
+    camera.position.x = 5;
+    camera.position.y = 25;
+    camera.position.z = 122;
 
     // Контроллер камеры - орбитальный
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableKeys = false;
     controls.keys = {};
-    controls.target = new THREE.Vector3(0, 28, 0);
+    controls.target = new THREE.Vector3(45, 28, 0);
     controls.enableDamping = true;
     controls.enablePan = false;
     controls.dampingFactor = 0.2;
     controls.panningMode = THREE.HorizontalPanning;
-    controls.minDistance = 50;
+    controls.minDistance = 10;
     controls.maxDistance = 500;
-    controls.maxPolarAngle = Math.PI / 1.7;
+    controls.maxPolarAngle = Math.PI / 1.6;
     controls.minPolarAngle = Math.PI / 8;
     controls.target_offset = 40;
     controls.mouseButtons = {
@@ -74,15 +71,21 @@ function init_3d_components() {
     // light.position.set(0, 100, 0);
     // scene.add(light);
 
-    let light2 = new THREE.PointLight(0xFFFF55, 2.0, 100);
-    light2.position.set(0, 30, 30);
+    let light2 = new THREE.PointLight(0xFFFF55, 10.0, 50);
+    light2.position.set(0, 50, 10);
     scene.add(light2);
 
-    let light3 = new THREE.PointLight(0x33FF55, 2.0, 50);
-    light3.position.set(0, 30, 0);
+    // let light2_helper = new THREE.PointLightHelper(light2);
+    // scene.add(light2_helper);
+
+    let light3 = new THREE.PointLight(0x55FF65, 2.0, 300);
+    light3.position.set(40, 15, 10);
     scene.add(light3);
 
-    var ambientLight = new THREE.AmbientLight( 0x8080FF, 0.9 );
+    // let light3_helper = new THREE.PointLightHelper(light3);
+    // scene.add(light3_helper);
+
+    var ambientLight = new THREE.AmbientLight( 0x6060FF, 0.8 );
 	scene.add( ambientLight );
 
     // water

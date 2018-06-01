@@ -231,7 +231,6 @@ function findAllMaterialsInObjectByName(object, name, m_array=[]) {
     return m_array;
 }
 
-
 function findAllMaterialsInObject(object,  m_array=[]) {
     if(object.type == "Group") {
         for(let i = 0; i < object.children.length; i++) {
