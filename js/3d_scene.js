@@ -39,7 +39,7 @@ function init_3d_components() {
 
     camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
 
-    camera.position.x = 5;
+    //camera.position.x = 5;
     camera.position.y = 25;
     camera.position.z = 122;
 
@@ -47,7 +47,7 @@ function init_3d_components() {
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableKeys = false;
     controls.keys = {};
-    controls.target = new THREE.Vector3(45, 28, 0);
+    controls.target = new THREE.Vector3(20, 28, 0);
     controls.enableDamping = true;
     controls.enablePan = false;
     controls.dampingFactor = 0.2;
