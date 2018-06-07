@@ -17,10 +17,12 @@ let water;
 
 function init_3d_components() {
 
+    let far_camera_distance = 250
+
     // 3D Canvas part 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x202040);
-    scene.fog = new THREE.Fog(0x202040, 100, 250);
+    scene.fog = new THREE.Fog(0x202040, 100, far_camera_distance);
 
     // Канвас
     canvas_container = document.getElementById("container3d");
@@ -37,7 +39,7 @@ function init_3d_components() {
     canvas_container.appendChild(renderer.domElement);
 
 
-    camera = new THREE.PerspectiveCamera(60, w / h, 0.1, 2000);
+    camera = new THREE.PerspectiveCamera(60, w / h, 0.1, far_camera_distance);
 
     //camera.position.x = 5;
     camera.position.y = 25;
