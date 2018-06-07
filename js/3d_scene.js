@@ -43,7 +43,7 @@ function init_3d_components() {
 
     //camera.position.x = 5;
     camera.position.y = 25;
-    camera.position.z = 122;
+    camera.position.z = 182;
 
     // Контроллер камеры - орбитальный
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -54,9 +54,9 @@ function init_3d_components() {
     controls.enablePan = false;
     controls.dampingFactor = 0.2;
     controls.panningMode = THREE.HorizontalPanning;
-    controls.minDistance = 10;
-    controls.maxDistance = 500;
-    controls.maxPolarAngle = Math.PI / 1.6;
+    controls.minDistance = 50;
+    controls.maxDistance = 200;
+    controls.maxPolarAngle = Math.PI / 2.0;
     controls.minPolarAngle = Math.PI / 8;
     controls.target_offset = 40;
     controls.mouseButtons = {
